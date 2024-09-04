@@ -1,8 +1,10 @@
 package org.tbank;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-//@AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Getter
@@ -12,7 +14,6 @@ public class City {
     private Coordinate coords;
 }
 
-//@AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Getter
