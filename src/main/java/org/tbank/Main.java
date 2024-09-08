@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.tbank.model.City;
 import org.tbank.util.JsonReader;
 import org.tbank.util.XmlWriter;
 
