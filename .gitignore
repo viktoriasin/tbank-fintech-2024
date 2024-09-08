@@ -30,9 +30,8 @@ out/
 
 # Gradle files
 .gradle/
-build/
-.idea/**/gradle.xml
-.idea/**/libraries
+.build/
+.idea/
 **/build/
 !src/**/build/
 
@@ -74,3 +73,7 @@ release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
+
+
+# DATA
+data_output/
