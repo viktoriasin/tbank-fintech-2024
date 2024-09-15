@@ -14,13 +14,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Main {
+public class Lesson2Main {
 
     private final static String INPUT_PATH = "./data_src";
     private final static String OUTPUT_PATH = "./data_output";
     private final static String OUTPUT_TYPE = ".xml";
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Lesson2Main.class);
 
     public static void main(String[] args) {
         JsonReader jsonReader = new JsonReader(new ObjectMapper());
