@@ -20,8 +20,8 @@ public class CategoriesDataSource {
         return dataSource.get(id);
     }
 
-    public void addCategory(int id, @NonNull String slug, @NonNull String name) {
-        dataSource.put(id, new Category(id, slug, name));
+    public void addCategory(Category category) {
+        dataSource.put(category.getId(), category);
     }
 
     public void updateCategory(int id, String slug, String name) {
