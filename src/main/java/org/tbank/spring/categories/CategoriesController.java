@@ -12,9 +12,6 @@ public class CategoriesController {
     @Autowired
     private CategoriesDataSource categoriesDataSource;
 
-    @Autowired
-    private CategoriesDataLoader categoriesDataLoader;
-
     @GetMapping("")
     public List<Category> getCategories() {
         return categoriesDataSource.getCategories();
@@ -46,10 +43,5 @@ public class CategoriesController {
     @DeleteMapping("/{id}")
     public void deleteCategory(@PathVariable(value = "id") Integer id) {
         categoriesDataSource.deleteCategory(id);
-    }
-
-    @GetMapping("/test")
-    public void loadData() {
-        categoriesDataLoader.loadData();
     }
 }
