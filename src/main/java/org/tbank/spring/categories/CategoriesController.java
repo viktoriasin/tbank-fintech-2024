@@ -1,42 +1,47 @@
 package org.tbank.spring.categories;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/v1/places/categories")
 public class CategoriesController {
 
+    @Autowired
+    private CategoriesDataSource categoriesDataSource;
+
     @GetMapping("")
-    public String getCategories() {
-        return "Hello world";
+    public List<Category> getCategories() {
+        return categoriesDataSource.getCategories();
     }
 
     @GetMapping("/{id}")
-    public String getCategoryById(@PathVariable(value = "id") String id) {
-        return id;
+    public Category getCategoryById(@PathVariable(value = "id") Integer id) {
+        return categoriesDataSource.getCategory(id);
     }
 
     @PostMapping("")
-    public String postCategory(
-            @RequestParam String id,
+    public void postCategory(
+            @RequestParam Integer id,
             @RequestParam String slug,
             @RequestParam String name
     ) {
-        return id + ", " + slug + ", " + name;
+        categoriesDataSource.addCategory(id, slug, name);
     }
 
     @PutMapping("/{id}")
-    public String putCategory(
-            @PathVariable(value = "id") String id,
+    public void putCategory(
+            @PathVariable(value = "id") Integer id,
             @RequestParam(required = false) String slug,
             @RequestParam(required = false) String name
     ) {
-        return id + ", " + slug + ", " + name;
+        categoriesDataSource.updateCategory(id, slug, name);
     }
 
     @DeleteMapping("/{id}")
-    public String deleteCategory(@PathVariable(value = "id") String id) {
-        return id;
+    public void deleteCategory(@PathVariable(value = "id") Integer id) {
+        categoriesDataSource.deleteCategory(id);
     }
-
 }
