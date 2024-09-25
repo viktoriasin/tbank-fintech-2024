@@ -1,5 +1,7 @@
 package org.tbank.spring.locations;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
@@ -12,6 +14,8 @@ import org.tbank.spring.common.DataSource;
 @Component
 public class LocationsDataLoader {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(LocationsDataLoader.class);
+
     @Autowired
     private DataSource<Integer, Location> dataSource;
 
@@ -22,20 +26,20 @@ public class LocationsDataLoader {
     public void loadData() {
         Location[] locations;
         try {
-            System.out.println("Начинаю грузить Locations.");
+            LOGGER.info("Начинаю грузить Locations.");
             locations = restTemplate.getForEntity("https://kudago.com/public-api/v1.4/locations/", Location[].class).getBody();
         } catch (RestClientException e) {
-            System.out.println("Не смогли загрузить Locations.");
+            LOGGER.info("Не смогли загрузить Locations.");
             return;
         }
         if (locations == null) {
-            System.out.println("Locations нет.");
+            LOGGER.info("Locations нет.");
             return;
         }
-        System.out.println("Сохраняю Locations (" + locations.length + ") в базу данных.");
+        LOGGER.info("Сохраняю Locations ({}) в базу данных.", locations.length);
         for (Location location : locations) {
             dataSource.put(location);
         }
-        System.out.println("Сохранил Locations в базу данных.");
+        LOGGER.info("Сохранил Locations в базу данных.");
     }
 }

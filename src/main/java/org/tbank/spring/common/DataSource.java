@@ -32,10 +32,6 @@ public class DataSource<TKey, TValue extends ValueWithKey<? extends TKey>> {
     }
 
     public void delete(TKey key) {
-        if (dataSource.remove(key) != null) {
-            System.out.println("Данные по ключу " + key + " были удалены.");
-        } else {
-            System.out.println("Категории по ключу " + key + " в базе нет.");
-        }
+        dataSource.remove(key);
     }
 }

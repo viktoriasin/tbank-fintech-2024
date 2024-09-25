@@ -1,5 +1,7 @@
 package org.tbank.spring.categories;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
@@ -12,6 +14,8 @@ import org.tbank.spring.common.DataSource;
 @Component
 public class CategoriesDataLoader {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(CategoriesDataLoader.class);
+
     @Autowired
     private DataSource<Integer, Category> dataSource;
 
@@ -22,20 +26,20 @@ public class CategoriesDataLoader {
     public void loadData() {
         Category[] categories;
         try {
-            System.out.println("Начинаю грузить Categories.");
+            LOGGER.info("Начинаю грузить Categories.");
             categories = restTemplate.getForEntity("https://kudago.com/public-api/v1.4/place-categories/", Category[].class).getBody();
         } catch (RestClientException e) {
-            System.out.println("Не смогли загрузить Categories.");
+            LOGGER.info("Не смогли загрузить Categories.");
             return;
         }
         if (categories == null) {
-            System.out.println("Categories нет.");
+            LOGGER.info("Categories нет.");
             return;
         }
-        System.out.println("Сохраняю Categories (" + categories.length + ") в базу данных.");
+        LOGGER.info("Сохраняю Categories ({}) в базу данных.", categories.length);
         for (Category category : categories) {
             dataSource.put(category);
         }
-        System.out.println("Сохранил Categories в базу данных.");
+        LOGGER.info("Сохранил Categories в базу данных.");
     }
 }

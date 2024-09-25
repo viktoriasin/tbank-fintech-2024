@@ -2,6 +2,8 @@ package org.tbank.spring.aop;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
@@ -16,6 +18,8 @@ import java.util.Set;
 
 @Component
 public class TimedPostProcessor implements BeanPostProcessor {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(TimedPostProcessor.class);
 
     private final Map<String, Class<?>> timedBeans = new HashMap<>();
     private final Map<String, Set<Method>> timedMethods = new HashMap<>();
@@ -60,11 +64,11 @@ public class TimedPostProcessor implements BeanPostProcessor {
             }
 
             String methodName = invocation.getMethod().getName();
-            System.out.println(className + "." + methodName + "() started.");
+            LOGGER.info("{}.{}() started.", className, methodName);
             long startTimeNs = System.nanoTime();
             Object result = invocation.proceed();
             long finishTimeNs = System.nanoTime();
-            System.out.println(className + "." + methodName + "() finished. Took " + (finishTimeNs - startTimeNs) + " ns");
+            LOGGER.info("{}.{}() finished. Took {} ns", className, methodName, finishTimeNs - startTimeNs);
             return result;
         }
     }
