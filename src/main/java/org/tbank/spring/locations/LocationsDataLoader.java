@@ -9,7 +9,6 @@ import org.springframework.web.client.RestTemplate;
 import org.tbank.spring.aop.Timed;
 import org.tbank.spring.common.DataSource;
 
-@Timed
 @Component
 public class LocationsDataLoader {
 
@@ -18,6 +17,7 @@ public class LocationsDataLoader {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
+    @Timed
     @EventListener(ApplicationReadyEvent.class)
     public void loadData() {
         Location[] locations;
@@ -32,7 +32,7 @@ public class LocationsDataLoader {
             System.out.println("Locations нет.");
             return;
         }
-        System.out.println("Сохраняю Locations в базу данных.");
+        System.out.println("Сохраняю Locations (" + locations.length + ") в базу данных.");
         for (Location location : locations) {
             dataSource.put(location);
         }

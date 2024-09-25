@@ -9,7 +9,6 @@ import org.springframework.web.client.RestTemplate;
 import org.tbank.spring.aop.Timed;
 import org.tbank.spring.common.DataSource;
 
-@Timed
 @Component
 public class CategoriesDataLoader {
 
@@ -18,6 +17,7 @@ public class CategoriesDataLoader {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
+    @Timed
     @EventListener(ApplicationReadyEvent.class)
     public void loadData() {
         Category[] categories;
@@ -32,7 +32,7 @@ public class CategoriesDataLoader {
             System.out.println("Categories нет.");
             return;
         }
-        System.out.println("Сохраняю Categories в базу данных.");
+        System.out.println("Сохраняю Categories (" + categories.length + ") в базу данных.");
         for (Category category : categories) {
             dataSource.put(category);
         }
