@@ -2,12 +2,22 @@ package org.tbank.spring.categories;
 
 import lombok.Data;
 import lombok.NonNull;
+import org.tbank.spring.common.ValueWithKey;
 
 @Data
-public class Category {
-    private final int id;
+public class Category implements ValueWithKey<Integer> {
+
     @NonNull
-    private final String slug;
+    private final Integer id;
+
     @NonNull
-    private final String name;
+    private String slug;
+
+    @NonNull
+    private String name;
+
+    @Override
+    public Integer getKey() {
+        return id;
+    }
 }
