@@ -6,8 +6,10 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
+import org.tbank.spring.aop.Timed;
 import org.tbank.spring.common.DataSource;
 
+@Timed
 @Component
 public class LocationsDataLoader {
 

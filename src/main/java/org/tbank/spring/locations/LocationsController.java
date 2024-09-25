@@ -2,10 +2,12 @@ package org.tbank.spring.locations;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.tbank.spring.aop.Timed;
 import org.tbank.spring.common.DataSource;
 
 import java.util.List;
 
+@Timed
 @RestController
 @RequestMapping(value = "/api/v1/locations")
 public class LocationsController {
